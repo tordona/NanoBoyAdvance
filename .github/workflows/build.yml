@@ -37,40 +37,40 @@ jobs:
           path: upload
           if-no-files-found: error
 
- build-win-arm64:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: msys2/setup-msys2@v2
-        with:
-          install: gcc make mingw-w64-clang-aarch64-cmake mingw-w64-clang-aarch64-python-jinja mingw-w64-clang-aarch64-python-lxml mingw-w64-clang-aarch64-SDL2 mingw-w64-clang-aarch64-qt5-static
-      - name: Build NanoBoyAdvance
-        run: |
-          cmake \
-            -Bbuild \
-            -G"Unix Makefiles" \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_CXX_FLAGS="-s" \
-            -DPython_EXECUTABLE="$(which python3)" \
-            -DPLATFORM_QT_STATIC=ON \
-            -DUSE_STATIC_SDL=ON \
-            -DRELEASE_BUILD=ON \
-            -DQT5_STATIC_DIR="/c/tools/msys64/clangarm64/qt5-static"
-          cd build
-          make -j$NUMBER_OF_PROCESSORS
-      - name: Collect artifacts
-        run: |
-          mkdir upload
-          cp -r build/bin/qt/{NanoBoyAdvance.exe,config.toml} upload
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: NanoBoyAdvance-win-arm64
-          path: upload
-          if-no-files-found: error
+  build-win-arm64:
+      runs-on: windows-latest
+      defaults:
+        run:
+          shell: msys2 {0}
+      steps:
+        - uses: actions/checkout@v4
+        - uses: msys2/setup-msys2@v2
+          with:
+            install: gcc make mingw-w64-clang-aarch64-cmake mingw-w64-clang-aarch64-python-jinja mingw-w64-clang-aarch64-python-lxml mingw-w64-clang-aarch64-SDL2 mingw-w64-clang-aarch64-qt5-static
+        - name: Build NanoBoyAdvance
+          run: |
+            cmake \
+              -Bbuild \
+              -G"Unix Makefiles" \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_CXX_FLAGS="-s" \
+              -DPython_EXECUTABLE="$(which python3)" \
+              -DPLATFORM_QT_STATIC=ON \
+              -DUSE_STATIC_SDL=ON \
+              -DRELEASE_BUILD=ON \
+              -DQT5_STATIC_DIR="/c/tools/msys64/clangarm64/qt5-static"
+            cd build
+            make -j$NUMBER_OF_PROCESSORS
+        - name: Collect artifacts
+          run: |
+            mkdir upload
+            cp -r build/bin/qt/{NanoBoyAdvance.exe,config.toml} upload
+        - name: Upload artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: NanoBoyAdvance-win-arm64
+            path: upload
+            if-no-files-found: error
 
   build-linux:
     runs-on: ubuntu-latest
