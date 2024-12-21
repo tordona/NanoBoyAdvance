@@ -51,7 +51,7 @@ jobs:
       - name: Build NanoBoyAdvance
         run: |
           set MSYSTEM=CLANGARM64
-          pacman --noconfirm -S gcc cmake
+          pacman --noconfirm -S gcc cmake git
           cmake \
             -Bbuild \
             -G"Unix Makefiles" \
