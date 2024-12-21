@@ -49,7 +49,6 @@ jobs:
           shell: msys2 {0}
           run: |
             set MSYSTEM=CLANGARM64
-            pacman --noconfirm -S mingw-w64-clang-aarch64-cmake
             cmake \
               -Bbuild \
               -G"Unix Makefiles" \
