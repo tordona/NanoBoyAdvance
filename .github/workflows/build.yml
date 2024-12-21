@@ -39,9 +39,6 @@ jobs:
 
   build-win-arm64:
       runs-on: windows-latest
-      defaults:
-        run:
-          shell: msys2 {0}
       steps:
         - uses: actions/checkout@v4
         - uses: msys2/setup-msys2@v2
@@ -49,8 +46,10 @@ jobs:
             msystem: CLANGARM64
             install: make git cmake mingw-w64-x86_64-gcc mingw-w64-clang-aarch64-python-jinja mingw-w64-clang-aarch64-python-lxml mingw-w64-clang-aarch64-SDL2 mingw-w64-clang-aarch64-qt5-static
         - name: Build NanoBoyAdvance
+          shell: msys2 {0}
           run: |
             set MSYSTEM=CLANGARM64
+            pacman --noconfirm -S mingw-w64-clang-aarch64-cmake
             cmake \
               -Bbuild \
               -G"Unix Makefiles" \
