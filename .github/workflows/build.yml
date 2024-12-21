@@ -51,7 +51,7 @@ jobs:
       - name: Build NanoBoyAdvance
         run: |
           set MSYSTEM=CLANGARM64
-          pacman --noconfirm -S gcc cmake git mingw-w64-clang-aarch64-glew
+          pacman --noconfirm -S gcc cmake git glew
           cmake \
             -Bbuild \
             -G"Unix Makefiles" \
